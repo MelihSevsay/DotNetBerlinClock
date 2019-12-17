@@ -26,7 +26,7 @@ namespace BerlinClock
             tryParse &= int.TryParse(timeSections[2], out second);
 
             if (!tryParse)
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException("aTime");
 
             List<Task> tasks = new List<Task>() {
             TopLevelLampAsync(levels),

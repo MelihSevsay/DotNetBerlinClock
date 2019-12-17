@@ -25,10 +25,15 @@ namespace BerlinClock.Contracts.Extentions
                 builder.Remove(index, 1);
                 builder.Insert(index, value);
             }
-            catch (Exception ex)
+            catch (IndexOutOfRangeException)
             {
                 //possible exception IndexOutOfRangeException
                 //Log the error or notify user
+                //Some specific message also could be.
+                throw new IndexOutOfRangeException("source string");
+            }
+            catch(Exception ex)
+            {
                 throw ex;
             }
 
