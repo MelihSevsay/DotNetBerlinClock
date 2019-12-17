@@ -15,7 +15,7 @@ namespace BerlinClock.Contracts.Extentions
         /// <param name="source">source string</param>
         /// <param name="value">char to replace with</param>
         /// <param name="index">index to char to replace with 'value'</param>
-        /// <returns></returns>
+        /// <returns>Modified source</returns>
         public static string ReplaceAtIndexOf(this string source, char value, int index)
         {
 

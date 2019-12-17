@@ -14,7 +14,7 @@ namespace BerlinClock
         int minute;
         int second;
 
-        public string ConvertTime(string aTime)
+        public async Task<string> ConvertTime(string aTime)
         {
 
             string[] levels = new string[5] { "", "", "", "", "" };
@@ -36,12 +36,12 @@ namespace BerlinClock
             ForthLevelLampAsync(levels)
             };
 
-            var exc = tasks.ToArray();
-            Task.WaitAll(exc);
+            var excs = tasks.ToArray();
+            //some other work might be here...
+            Task.WaitAll(excs);
 
             //Join with then specific delimater.
-            return string.Join("\r\n", levels);
-
+            return await ComposeResultAsync(levels).ConfigureAwait(false);
         }
 
         //Set state of Top Level Lamp
@@ -108,13 +108,23 @@ namespace BerlinClock
 
             await Task.Run(() =>
             {
-                int remaining_min = minute % 5;
-                levels[4] = levels[4].PadLeft(remaining_min, 'Y');
+                int remaining = minute % 5;
+                levels[4] = levels[4].PadLeft(remaining, 'Y');
                 levels[4] = levels[4].PadRight(4, 'O');
             }).ConfigureAwait(false);
 
         }
 
-
+        
+        /// <summary>
+        /// ComposerResult with "\r\n"
+        /// </summary>
+        /// <param name="levels">source</param>
+        /// <param name="delimater">default "\r\n"</param>
+        /// <returns>joined string with 'delimater'</returns>
+        public async Task<string> ComposeResultAsync(string[] levels, string delimater = "\r\n")
+        {
+            return await Task.FromResult(string.Join(delimater, levels));
+        }
     }
 }
