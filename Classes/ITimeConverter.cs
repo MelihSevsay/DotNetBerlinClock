@@ -7,6 +7,6 @@ namespace BerlinClock
 {
     public interface ITimeConverter
     {
-        String convertTime(String aTime);
+        string ConvertTime(string aTime);
     }
 }
