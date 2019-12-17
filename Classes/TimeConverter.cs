@@ -48,7 +48,7 @@ namespace BerlinClock
             Task.WaitAll(excs);
 
             //Join with then specific delimater.
-            return await ComposeResultAsync(levels);
+            return await ComposeResultAsync(levels).ConfigureAwait(false);
         }
 
         //Set state of Top Level Lamp
